@@ -1,0 +1,10 @@
+/bin
+/cmpp_log
+/build
+/.settings
+/.project
+/.classpath
+/*.iml
+/.idea
+/cmpp2smg/log
+/.gradle
