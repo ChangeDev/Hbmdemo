@@ -10,7 +10,7 @@
         <!-- Database connection settings -->
         <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
         <!--<property name="connection.url">jdbc:hsqldb:hsql://localhost</property>-->
-        <property name="connection.url">jdbc:hsqldb:mem:.;shutdown=true</property>
+        <property name="connection.url">jdbc:hsqldb:hsql://localhost</property>
         <property name="connection.username">sa</property>
         <property name="connection.password"></property>
 
@@ -24,7 +24,7 @@
         <property name="current_session_context_class">thread</property>
 
         <!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
