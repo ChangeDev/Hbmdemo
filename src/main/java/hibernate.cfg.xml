@@ -34,7 +34,7 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping resource="com/wind/entity/Message.hbm.xml"/>
-        <mapping class="com.wind.entity.User"/>
+        <mapping class="com.wind.entity.Student"/>
 
     </session-factory>
 

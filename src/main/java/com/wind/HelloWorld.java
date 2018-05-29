@@ -1,7 +1,7 @@
 package com.wind;
 
 import com.wind.entity.Message;
-import com.wind.entity.User;
+import com.wind.entity.Student;
 import com.wind.util.HibernateUtil;
 import com.wind.util.HsqlDbUtl;
 import org.hibernate.Session;
@@ -41,8 +41,8 @@ public class HelloWorld {
 
         Session forthSession = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction forthTx = forthSession.beginTransaction();
-        User user = new User.Builder().age(22).gender(1).message(new Message("Wow")).name("dev").build();
-        Long userId = (Long) forthSession.save(user);
+        Student student = new Student.Builder().age(22).gender(1).message(new Message("Wow")).name("dev").build();
+        Long userId = (Long) forthSession.save(student);
         forthTx.commit();
 
         printAllMessage("User");
