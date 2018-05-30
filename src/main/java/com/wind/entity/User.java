@@ -2,32 +2,39 @@ package com.wind.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import java.util.StringTokenizer;
+import javax.persistence.*;
 
 /**
  * @description:
  * @author: ChangFeng
  * @create: 2018-05-28 17:33
  **/
-@Entity
+// 与User.hbm.xml冲突
+//@Entity
+//@Table(name = "user")
 @Data
 public class User {
 
-    private String firstname;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private String lastname;
+    // 省略@Column
+    private String loginName;
 
-    private Address address;
+    /**
+     * @See com.wind.entity.Address @Enablable
+     */
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "home_street")),
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "home_zipcode")),
+    })
+    private Address homeAddress;
 
-    public String getName() {
-        return firstname + " " + lastname;
-    }
+    @Embedded
+    private Address billingAddress;
 
-    public void setName(String name) {
-        StringTokenizer stringTokenizer = new StringTokenizer(name);
-        firstname = stringTokenizer.nextToken();
-        lastname = stringTokenizer.nextToken();
-    }
 
 }

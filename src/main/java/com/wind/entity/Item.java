@@ -12,7 +12,6 @@ import java.util.Set;
  * @author: ChangFeng
  * @create: 2018-05-28 17:44
  **/
-@Entity
 @Data
 public class Item {
 

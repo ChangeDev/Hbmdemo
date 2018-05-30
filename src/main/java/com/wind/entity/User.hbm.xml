@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.wind.entity">
+    <class name="User" table="user">
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="loginName" column="login_name"/>
+
+        <component name="homeAddress" class="Address">
+            <parent name="user" />
+            <property name="street" column="home_street" type="string" not-null="true"/>
+            <property name="city" column="home_city" type="string" not-null="true"/>
+            <property name="zipCode" column="home_zipcode" type="string" not-null="true"/>
+        </component>
+
+        <component name="billingAddress" class="Address">
+            <parent name="user" />
+            <property name="street" column="billing_street" type="string" not-null="true"/>
+            <property name="city" column="billing_city" type="string" not-null="true"/>
+            <property name="zipCode" column="billing_zipcode" type="string" not-null="true"/>
+        </component>
+    </class>
+</hibernate-mapping>

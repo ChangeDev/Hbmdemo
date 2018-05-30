@@ -1,6 +1,8 @@
 package com.wind;
 
+import com.wind.entity.Address;
 import com.wind.entity.Person;
+import com.wind.entity.User;
 import com.wind.util.HsqlDbUtl;
 import com.wind.util.JpaUtil;
 
@@ -17,33 +19,75 @@ import java.util.List;
  **/
 public class HelloWorldJpa {
 
+    public static EntityManagerFactory entityManagerFactory = null;
+
     static {
         // 启动hsqldb
         HsqlDbUtl.startHsqlDbServer();
+        entityManagerFactory = JpaUtil.createEntityManagerFactory();
     }
 
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = JpaUtil.createEntityManagerFactory();
-        EntityManager em1 = entityManagerFactory.createEntityManager();
-        EntityTransaction tx1 = em1.getTransaction();
-        tx1.begin();
+        saveUser();
+    }
+
+    public static void saveUser() {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        User user = new User();
+        user.setLoginName("admin");
+
+        Address homeAddress = new Address();
+        homeAddress.setCity("Peking");
+        homeAddress.setStreet("ChaoYang");
+        homeAddress.setZipCode("001");
+        user.setHomeAddress(homeAddress);
+
+        Address billingAddress = new Address();
+
+        billingAddress.setCity("HongKong");
+        billingAddress.setStreet("Wanzaimatou");
+        billingAddress.setZipCode("002");
+        user.setBillingAddress(billingAddress);
+
+        em.persist(user);
+
+        tx.commit();
+        em.close();
+        queryAll("User");
+    }
+
+    public static void savePerson() {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
 
         Person person = new Person();
         person.setName("coder");
-        em1.persist(person);
+        em.persist(person);
 
-        tx1.commit();
-        em1.close();
+        tx.commit();
+        em.close();
 
-        EntityManager em2 = entityManagerFactory.createEntityManager();
-        EntityTransaction tx2 = em2.getTransaction();
-        tx2.begin();
-        Query query = em2.createQuery("FROM Person");
+        queryAll("Person");
+    }
+
+    public static EntityManager getEntityManager() {
+        return entityManagerFactory.createEntityManager();
+    }
+
+    public static void queryAll(String entityName) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        Query query = em.createQuery("FROM " + entityName);
         List resultList = query.getResultList();
         resultList.forEach(entity -> {
             System.out.println(entity);
         });
-        tx2.commit();
-        em2.close();
+        tx.commit();
+        em.close();
     }
 }

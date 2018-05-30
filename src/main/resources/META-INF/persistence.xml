@@ -13,7 +13,7 @@
             <!-- 如果使用下面的配置 需要将pom中的hibernate-entitymanager依赖的groupId修改为org.hibernate -->
             <!--<property name="hibernate.ejb.cfgfile" value="/hibernate.cfg.xml"/>-->
 
-            <!--自动侦测哪些映射元数据:备注解的类或者Hibernate XML映射文件; 这是默认的 -->
+            <!--自动侦测哪些映射元数据:被注解的类或者Hibernate XML映射文件; 这是默认的 -->
             <property name="hibernate.archive.autodetection" value="class,hbm"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
