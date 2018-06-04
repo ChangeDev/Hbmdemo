@@ -36,5 +36,9 @@ public class User {
     @Embedded
     private Address billingAddress;
 
+    @OneToOne
+    @JoinColumn(name="shipment_address_id") //user表中有一个shipment_address_id外键列
+    private Address shippingAddress;
+
 
 }

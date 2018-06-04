@@ -25,6 +25,7 @@ public class Address {
     private String zipCode;
 
     @Parent
+    // @OneToOne(mappedBy="shippingAddress")
     private User user;
 
     @Override

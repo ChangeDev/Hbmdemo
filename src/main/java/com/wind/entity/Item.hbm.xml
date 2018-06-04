@@ -60,6 +60,9 @@
             <key column="item_id"/>
             <one-to-many class="Bid"/>
         </set>
+
+        <!--用联结表映射，将将各类映射到三个表-->
+        <
     </class>
 
 </hibernate-mapping>
