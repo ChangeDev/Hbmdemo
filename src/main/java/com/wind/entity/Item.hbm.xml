@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.wind.entity">
+    <class name="Item" table="item">
+        <id name="id" column="id"/>
+        <property name="name"/>
+        <property name="description"/>
+        <set name="images" table="item_image">
+            <key column="id"/>
+            <element type="string" column="filename" not-null="true"/>
+        </set>
+
+        <!-- 以下是用xml映射集合 与实体中用注解映射集合冲突 -->
+        <!-- Collection images = new ArrayList() -->
+        <!-- 允许重复元素的无需集合 -->
+        <idbag name="images">
+            <collection-id column="id" type="long">
+                <generator class="sequence"></generator>
+            </collection-id>
+            <key column="item_id"/>
+            <element type="string" column="filename" not-null="true"/>
+        </idbag>
+        <!-- List images = new ArrayList() -->
+        <list name="images">
+            <key column="id"></key>
+            <list-index column="position"/>
+            <element type="string" column="filename" not-null="true"/>
+        </list>
+        <!-- Map images = new HashMap() -->
+        <map name="images">
+            <key column="item_id"></key>
+            <map-key type="string" column="imagename"/>
+            <element type="string" column="filename" not-null="true"/>
+        </map>
+
+        <!--private Set<Image> imageSet = new HashSet<>()-->
+        <set name="imageSet" table="item_image" order-by="name desc">
+            <key column="item_id"></key>
+            <composite-element class="Image">
+                <parent name="item"/>
+                <property name="name" column="name"/>
+                <property name="filename" column="filename"/>
+            </composite-element>
+        </set>
+        <!--private Set<Category> categories = new HashSet<>();-->
+        <idbag name="categories">
+            <collection-id column="id" type="long">
+                <generator class="sequence"></generator>
+            </collection-id>
+            <key column="item_id"/>
+            <composite-element class="Category">
+                <property name="name" type="string"/>
+            </composite-element>
+        </idbag>
+
+        <!--inverse=true意味着我们在item中对bid进行任何持久化-->
+        <set name="bids" inverse="true" cascade="save-update,delete">
+            <key column="item_id"/>
+            <one-to-many class="Bid"/>
+        </set>
+    </class>
+
+</hibernate-mapping>

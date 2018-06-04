@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.wind.entity">
+    <class name="Bid" table="bid">
+        <id column="id" type="long"/>
+        <!--一个投标只能有一个货物-->
+        <!--也就是说 bid和item是多对一的关系 bid表存储item表的主键:item_id-->
+        <many-to-one name="item" column="item_id" class="Item" not-null="true"/>
+    </class>
+</hibernate-mapping>

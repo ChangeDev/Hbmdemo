@@ -2,6 +2,7 @@ package com.wind.entity;
 
 import lombok.Data;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import java.util.HashSet;
 import java.util.Set;
