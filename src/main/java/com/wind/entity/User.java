@@ -3,6 +3,8 @@ package com.wind.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @description:
@@ -37,8 +39,10 @@ public class User {
     private Address billingAddress;
 
     @OneToOne
-    @JoinColumn(name="shipment_address_id") //user表中有一个shipment_address_id外键列
+    @JoinColumn(name = "shipment_address_id") //user表中有一个shipment_address_id外键列
     private Address shippingAddress;
 
+    @OneToMany(mappedBy = "buyer")
+    private Set<Item> boughtItems = new HashSet<>();
 
 }

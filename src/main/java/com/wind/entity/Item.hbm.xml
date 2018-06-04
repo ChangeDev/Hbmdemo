@@ -61,8 +61,10 @@
             <one-to-many class="Bid"/>
         </set>
 
-        <!--用联结表映射，将将各类映射到三个表-->
-        <
+        <set name="categories" table="category_item" cascade="save-update" inverse="true">
+            <key column="item_id"></key>
+            <many-to-many class="Category" column="category_id"/>
+        </set>
     </class>
 
 </hibernate-mapping>

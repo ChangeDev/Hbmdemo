@@ -2,8 +2,9 @@ package com.wind.entity;
 
 import lombok.Data;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,12 @@ public class Category {
 
     private Set<Category> childCategories = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "category_item",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private Set<Item> items = new HashSet<>();
 
     public void addChildCategory(Category childCategory) {

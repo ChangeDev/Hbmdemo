@@ -2,11 +2,15 @@
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-    <class name="com.wind.entity.Category"  table="category" >
-        <id name="id" column="id" type="long" >
-            <generator class="native" />
+<hibernate-mapping package="com.wind.entity">
+    <class name="Category" table="category">
+        <id name="id" column="id" type="long">
+            <generator class="native"/>
         </id>
-        <property name="name" column="name" type="string" />
+        <property name="name" column="name" type="string"/>
+        <set name="items" table="category_item" cascade="save-update">
+            <key column="category_id"></key>
+            <many-to-many class="Item" column="item_id"/>
+        </set>
     </class>
 </hibernate-mapping>

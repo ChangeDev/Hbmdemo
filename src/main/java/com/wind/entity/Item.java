@@ -64,6 +64,7 @@ public class Item {
             generator = "sequence")
     private Collection<Image> imgCol = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "items")
     private Set<Category> categories = new HashSet<>();
 
     /**
@@ -72,6 +73,17 @@ public class Item {
      */
     @OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Bid> bids = new HashSet<>();
+
+    /**
+     * 使用联结表（中间表）来做一对多的关联映射
+     */
+    @ManyToOne
+    @JoinTable(
+            name = "item_buyer",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private User buyer;
 
     public void addCategory(Category category) {
         if (null == category) {
